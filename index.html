@@ -1,23 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+  <head>
+    <meta charset="UTF-8" />
     <title>Super Saudi Drift 2.0</title>
-    <style>
-        body { margin: 0; overflow: hidden; }
-    </style>
-</head>
-<body>
-    <!-- Load three.js from CDN -->
-    <script type="module">
-        import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.137.5/build/three.module.js";
-        import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.137.5/examples/jsm/controls/OrbitControls.js";
-        import { OBJLoader } from "https://cdn.jsdelivr.net/npm/three@0.137.5/examples/jsm/loaders/OBJLoader.js";
-
-        // Your game.js content will go here, ensuring you have valid imports
-    </script>
-    
-    <script type="module" src="game.js"></script>
-</body>
+  </head>
+  <body>
+    <script type="module" src="game.js"></script> <!-- ✅ CRITICAL -->
+  </body>
 </html>
