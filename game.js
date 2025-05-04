@@ -1,7 +1,3 @@
-// Super Saudi Drift 2.0 - Core Game Prototype
-// JavaScript + Three.js
-// Always-in-Car Arabian Drift Chaos
-
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.136.0/examples/jsm/controls/OrbitControls.js';
 import {OBJLoader} from 'https://cdn.jsdelivr.net/npm/three@0.136.0/examples/jsm/loaders/OBJLoader.js';
