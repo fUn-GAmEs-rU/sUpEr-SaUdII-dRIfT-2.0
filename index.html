@@ -10,13 +10,14 @@
 </head>
 <body>
     <!-- Load three.js from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/build/three.min.js"></script>
-    <!-- Load OBJLoader from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/loaders/OBJLoader.js"></script>
-    <!-- Load OrbitControls from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.137.5/examples/js/controls/OrbitControls.js"></script>
+    <script type="module">
+        import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.137.5/build/three.module.js";
+        import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.137.5/examples/jsm/controls/OrbitControls.js";
+        import { OBJLoader } from "https://cdn.jsdelivr.net/npm/three@0.137.5/examples/jsm/loaders/OBJLoader.js";
 
-    <!-- Your game.js -->
+        // Your game.js content will go here, ensuring you have valid imports
+    </script>
+    
     <script type="module" src="game.js"></script>
 </body>
 </html>
