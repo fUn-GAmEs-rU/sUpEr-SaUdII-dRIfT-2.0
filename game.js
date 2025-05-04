@@ -2,12 +2,10 @@
 // JavaScript + Three.js
 // Always-in-Car Arabian Drift Chaos
 
-// Remove imports for THREE, OrbitControls, and OBJLoader
-// import * as THREE from 'three'; // This is unnecessary when using CDN
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-// import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import * as THREE from './node_modules/three/build/three.module.js';
+import { OrbitControls } from './node_modules/three/examples/jsm/controls/OrbitControls.js';
+import { OBJLoader } from './node_modules/three/examples/jsm/loaders/OBJLoader.js';
 
-// Declare variables
 let scene, camera, renderer, car, keys = {}, speed = 0, drift = 0, crashSound, chaosText;
 let carModel, carColor = 0xff0000;  // Initial car color
 
@@ -42,7 +40,7 @@ function init() {
   scene.add(ground);
 
   // Load car model (car_model.obj)
-  const objLoader = new THREE.OBJLoader();
+  const objLoader = new OBJLoader();
   objLoader.load('assets/car_model.obj', (obj) => {
     car = obj;
     car.scale.set(0.5, 0.5, 0.5); // Resize car model to fit the scene
