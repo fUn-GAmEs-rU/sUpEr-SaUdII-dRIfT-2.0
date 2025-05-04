@@ -4,15 +4,18 @@
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 let scene, camera, renderer, car, keys = {}, speed = 0, drift = 0, crashSound, chaosText;
+let carModel, carColor = 0xff0000;  // Initial car color
 
 init();
 animate();
 
 function init() {
+  // Scene Setup
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xdedede);
+  scene.background = new THREE.Color(0x87CEEB); // Sky blue for open world feel
 
   camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
   camera.position.set(0, 5, -10);
@@ -28,22 +31,21 @@ function init() {
   const ambient = new THREE.AmbientLight(0x404040);
   scene.add(ambient);
 
+  // Create Open World Terrain (simple plane)
   const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(1000, 1000),
-    new THREE.MeshLambertMaterial({ color: 0xf2c078 })
+    new THREE.PlaneGeometry(2000, 2000),
+    new THREE.MeshLambertMaterial({ color: 0x228B22 }) // Green grass
   );
   ground.rotation.x = -Math.PI / 2;
   scene.add(ground);
 
-  // Basic ugly car model
-  const carBody = new THREE.Mesh(
-    new THREE.BoxGeometry(2, 1, 4),
-    new THREE.MeshLambertMaterial({ color: 0xff0000 })
-  );
-
-  car = new THREE.Object3D();
-  car.add(carBody);
-  scene.add(car);
+  // Load car model (car_model.obj)
+  const objLoader = new OBJLoader();
+  objLoader.load('assets/car_model.obj', (obj) => {
+    car = obj;
+    car.scale.set(0.5, 0.5, 0.5); // Resize car model to fit the scene
+    scene.add(car);
+  });
 
   // Cones (badly placed obstacles)
   for (let i = 0; i < 20; i++) {
@@ -57,16 +59,6 @@ function init() {
     cone.name = "obstacle";
     scene.add(cone);
   }
-
-  // Fake ramp
-  const ramp = new THREE.Mesh(
-    new THREE.BoxGeometry(4, 1, 10),
-    new THREE.MeshLambertMaterial({ color: 0x888888 })
-  );
-  ramp.position.set(10, 0.5, 10);
-  ramp.rotation.x = -Math.PI / 8;
-  ramp.name = "obstacle";
-  scene.add(ramp);
 
   // Exploding barrels
   for (let i = 0; i < 5; i++) {
@@ -125,14 +117,17 @@ function animate() {
   let turn = 0;
   if (keys['a']) turn = 0.03;
   if (keys['d']) turn = -0.03;
-  car.rotation.y += turn * (speed > 0 ? 1 : -1);
 
-  let dx = Math.sin(car.rotation.y) * speed;
-  let dz = Math.cos(car.rotation.y) * speed;
-  car.position.x += dx;
-  car.position.z += dz;
+  if (car) {
+    car.rotation.y += turn * (speed > 0 ? 1 : -1);
 
-  // Collision detection with bad physics
+    let dx = Math.sin(car.rotation.y) * speed;
+    let dz = Math.cos(car.rotation.y) * speed;
+    car.position.x += dx;
+    car.position.z += dz;
+  }
+
+  // Collision detection with obstacles (e.g., barrels or cones)
   scene.children.forEach(obj => {
     const dist = car.position.distanceTo(obj.position);
     if (obj.name === "obstacle" && dist < 2) {
@@ -150,10 +145,12 @@ function animate() {
   });
 
   // Fake bad camera follow
-  camera.position.lerp(
-    new THREE.Vector3(car.position.x, car.position.y + 5, car.position.z - 10), 0.05
-  );
-  camera.lookAt(car.position);
+  if (car) {
+    camera.position.lerp(
+      new THREE.Vector3(car.position.x, car.position.y + 5, car.position.z - 10), 0.05
+    );
+    camera.lookAt(car.position);
+  }
 
   renderer.render(scene, camera);
 }
