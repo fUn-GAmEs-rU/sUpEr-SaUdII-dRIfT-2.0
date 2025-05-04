@@ -3,8 +3,8 @@
 // Always-in-Car Arabian Drift Chaos
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.module.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.136.0/examples/js/controls/OrbitControls.js';
-import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.136.0/examples/js/loaders/OBJLoader.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.136.0/examples/jsm/controls/OrbitControls.js';
+import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.136.0/examples/jsm/loaders/OBJLoader.js';
 
 let scene, camera, renderer, car, keys = {}, speed = 0, drift = 0, crashSound, chaosText;
 let carModel, carColor = 0xff0000;  // Initial car color
